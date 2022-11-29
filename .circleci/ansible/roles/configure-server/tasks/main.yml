@@ -9,6 +9,12 @@
   apt:
     upgrade: yes
 
+- name: "install python"
+  become: yes
+  apt:
+    name: python
+    update_cache: yes
+
 - name: "install npm & node"
   become: yes
   apt:
