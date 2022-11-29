@@ -175,8 +175,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update -y tar gzip
-            apk add --update -y ansible
+            apk add --update tar gzip
+            apk add --update ansible
             #exit 1
       - run:
           name: Configure server
