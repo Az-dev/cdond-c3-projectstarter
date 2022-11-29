@@ -1,0 +1,50 @@
+---
+- name: "update apt packages"
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: "upgrade packages"
+  become: yes
+  apt:
+    upgrade: yes
+
+- name: "install python"
+  become: yes
+  apt:
+    name: python
+    update_cache: yes
+
+- name: "install npm & node"
+  become: yes
+  apt:
+    name: ["nodejs" , "npm"]
+    state: latest
+    update_cache: yes
+
+- name: "install pm2"
+  become: yes
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: copy backend artifact
+  template:
+    src:  "artifact.tar.gz"
+    dest: "./"
+
+- name: "unzip artifact"
+  shell:  |
+    tar -xzvf artifact.tar.gz
+
+- name: "change dirctory to backend & run npm install"
+  shell:  |
+    cd backend
+    npm install
+
+- name: Start app with pm2
+  shell:  |
+    pm2 stop default
+    pm2 start npm -- start
