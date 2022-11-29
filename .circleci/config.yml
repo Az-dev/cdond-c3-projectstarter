@@ -154,7 +154,7 @@ jobs:
           command: |
             aws cloudformation \
             list-exports --query "Exports[?Name==\`BackendPublicIP\`].Value" \
-            --no-paginate --output text > ~/project/.circleci/ansible/inventory.txt
+            --no-paginate --output text >> ~/project/.circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
             #exit 1
       - persist_to_workspace:
