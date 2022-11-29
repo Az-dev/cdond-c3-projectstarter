@@ -35,3 +35,10 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
+
+Outputs:
+    BackendPublicIP:
+        Description: public ip for ec2 instance create for back end
+        Value: !GetAtt EC2Instance.PublicIp
+        Export:
+          Name: BackendPublicIP
