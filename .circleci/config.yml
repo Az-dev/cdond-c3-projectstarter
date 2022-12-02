@@ -224,6 +224,7 @@ jobs:
       - run:
           name: Send migration status to kvdb.io
           command: |
+            cat ~/project/backend/migrations_dump.txt
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then                
                 # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
@@ -236,9 +237,7 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/ 
+      - checkout       
       - run:
           name: Install dependencies
           command: |
@@ -247,6 +246,8 @@ jobs:
             yum install -y ansible
             yum install -y nodejs
             yum install -y npm
+      - attach_workspace:
+          at: ~/
       - run:
           name: Get backend url
           command: |
@@ -274,9 +275,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["db:15:b6:1b:82:98:46:a6:22:b9:1e:ab:3e:ad:f6:c9"]
-      - attach_workspace:
-          at: ~/
+          fingerprints: ["db:15:b6:1b:82:98:46:a6:22:b9:1e:ab:3e:ad:f6:c9"]      
       - run:
           name: Install dependencies
           command: |
@@ -284,6 +283,8 @@ jobs:
             apk add --update ansible
             apk add --update nodejs
             apk add --update npm
+      - attach_workspace:
+          at: ~/
       - run:
           name: Deploy backend
           command: |
@@ -361,25 +362,25 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
+      # - deploy-infrastructure:
+      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           # filters:
           #   branches:
           #     only: [test-feature-branch]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      - run-migrations
+          # requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
       - deploy-backend:
