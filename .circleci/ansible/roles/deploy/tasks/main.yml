@@ -31,9 +31,9 @@
     state: present
 
 - name: copy backend artifact
-  template:
+  copy:
     src:  "~/project/backend/artifact.tar.gz"
-    dest: "./"
+    dest: "./artifact.tar.gz"
 
 - name: "unzip artifact"
   shell:  |
