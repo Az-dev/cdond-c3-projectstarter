@@ -35,6 +35,7 @@
   copy:
     src:  "/root/project/backend/artifact.tar.gz"
     dest: "./artifact.tar.gz"
+    remote_src: false
 
 - name: "unzip artifact"
   shell:  |
