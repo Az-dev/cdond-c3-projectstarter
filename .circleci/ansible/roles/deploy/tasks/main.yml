@@ -33,7 +33,7 @@
 - name: copy backend artifact
   become: yes
   copy:
-    src:  "/root/project/backend/artifact.tar.gz"
+    src:  "/root/project/artifact.tar.gz"
     dest: "./artifact.tar.gz"
     remote_src: false
 
