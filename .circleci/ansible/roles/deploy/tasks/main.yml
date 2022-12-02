@@ -41,9 +41,8 @@
   shell:  |
     tar -xzvf artifact.tar.gz
 
-- name: "change dirctory to backend & run npm install"
-  shell:  |
-    cd backend
+- name: "run npm install"
+  shell:  |    
     npm install
 
 - name: Start app with pm2
