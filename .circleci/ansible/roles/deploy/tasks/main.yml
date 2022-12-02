@@ -32,7 +32,7 @@
 
 - name: copy backend artifact
   copy:
-    src:  "project/backend/artifact.tar.gz"
+    src:  "/root/project/backend/artifact.tar.gz"
     dest: "./artifact.tar.gz"
 
 - name: "unzip artifact"
