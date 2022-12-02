@@ -31,6 +31,7 @@
     state: present
 
 - name: copy backend artifact
+  become: yes
   copy:
     src:  "/root/project/backend/artifact.tar.gz"
     dest: "./artifact.tar.gz"
