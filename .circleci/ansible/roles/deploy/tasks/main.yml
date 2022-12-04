@@ -47,7 +47,7 @@
 
 - name: Start app with pm2
   shell:  |
-    . /etc/environment
-    . ~/.bashrc
-    bash -ilc pm2 stop default
+    # . /etc/environment
+    # . ~/.bashrc
+    # bash -ilc pm2 stop default
     bash -ilc pm2 start npm -- start
