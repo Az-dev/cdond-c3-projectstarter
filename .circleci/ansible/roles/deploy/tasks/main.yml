@@ -50,4 +50,4 @@
     # . /etc/environment
     # . ~/.bashrc
     # bash -ilc pm2 stop default
-    bash -ilc pm2 start npm -- start
+    bash -ilc 'pm2 start npm -- start'
