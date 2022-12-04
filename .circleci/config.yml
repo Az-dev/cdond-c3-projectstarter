@@ -15,25 +15,25 @@ commands:
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
             #exit 1
 
-  destroy-frontend:
-    description: Destroy front-end cloudformation stacks given a workflow ID.     
-    steps:
-      - run:
-          name: Destroy frontend environment
-          when: on_fail
-          command: |            
-            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-            #exit 1
+  # destroy-frontend:
+  #   description: Destroy front-end cloudformation stacks given a workflow ID.     
+  #   steps:
+  #     - run:
+  #         name: Destroy frontend environment
+  #         when: on_fail
+  #         command: |            
+  #           aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+  #           #exit 1
 
-  destroy-backend:
-    description: Destroy backend cloudformation stacks given a workflow ID.     
-    steps:
-      - run:
-          name: Destroy backend environment
-          when: on_fail
-          command: |            
-            aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
-            #exit 1
+  # destroy-backend:
+  #   description: Destroy backend cloudformation stacks given a workflow ID.     
+  #   steps:
+  #     - run:
+  #         name: Destroy backend environment
+  #         when: on_fail
+  #         command: |            
+  #           aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+  #           #exit 1
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -270,7 +270,7 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      - destroy-frontend
+      - destroy-environment
       - revert-migrations      
                     
   deploy-backend:
@@ -314,8 +314,8 @@ jobs:
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
             #exit 1
-      # - destroy-backend
-      # - revert-migrations   
+      - destroy-environment
+      - revert-migrations   
 
   smoke-test:
     docker:
