@@ -371,17 +371,18 @@ jobs:
             yum install -y tar gzip
       - attach_workspace:
           at: ~/
-      - run: persist last workflow id before promoting
-        command:  |
-          # Fetch the Old workflow ID along created stacks
-          export OldWorkflowID=$(aws cloudformation \
-          list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-          --no-paginate --output text)
-          touch ~/OldWorkflowID.txt
-          echo $OldWorkflowID > ~/OldWorkflowID.txt
-          cat ~/OldWorkflowID.txt
-          echo OldWorkflowID: "${OldWorkflowID}"
-          echo CurrentWorkflowID: "${CIRCLE_WORKFLOW_ID:0:7}"          
+      - run: 
+          name: persist last workflow id before promoting
+          command:  |
+            # Fetch the Old workflow ID along created stacks
+            export OldWorkflowID=$(aws cloudformation \
+                    list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+                    --no-paginate --output text)
+            touch ~/OldWorkflowID.txt
+            echo $OldWorkflowID > ~/OldWorkflowID.txt
+            cat ~/OldWorkflowID.txt
+            echo OldWorkflowID: "${OldWorkflowID}"
+            echo CurrentWorkflowID: "${CIRCLE_WORKFLOW_ID:0:7}"          
       - run:
           name: Update cloudfront distribution
           command: |
