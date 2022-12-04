@@ -49,5 +49,5 @@
   shell:  |
     . /etc/environment
     . ~/.bashrc
-    pm2 stop default
-    pm2 start npm -- start
+    bash -ilc pm2 stop default
+    bash -ilc pm2 start npm -- start
