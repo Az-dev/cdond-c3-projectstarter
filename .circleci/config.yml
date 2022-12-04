@@ -375,8 +375,8 @@ jobs:
         command:  |
           # Fetch the Old workflow ID along created stacks
           export OldWorkflowID=$(aws cloudformation \
-                  list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-                  --no-paginate --output text)
+          list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+          --no-paginate --output text)
           touch ~/OldWorkflowID.txt
           echo $OldWorkflowID > ~/OldWorkflowID.txt
           cat ~/OldWorkflowID.txt
